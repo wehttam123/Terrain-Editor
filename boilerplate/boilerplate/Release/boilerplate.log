@@ -1,0 +1,14 @@
+﻿  Geometry.cpp
+  InputHandler.cpp
+c:\documents\cpsc589ta\boilerplate\boilerplate\inputhandler.cpp(27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\documents\cpsc589ta\boilerplate\boilerplate\inputhandler.cpp(28): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  main.cpp
+  Program.cpp
+c:\documents\cpsc589ta\boilerplate\boilerplate\program.cpp(48): warning C4305: 'argument': truncation from 'double' to 'float'
+  RenderEngine.cpp
+  ShaderTools.cpp
+c:\documents\cpsc589ta\boilerplate\boilerplate\shadertools.cpp(159): warning C4244: 'initializing': conversion from 'std::streamoff' to 'unsigned long', possible loss of data
+  Generating code
+  All 357 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  boilerplate.vcxproj -> C:\Documents\CPSC589TA\boilerplate\Release\boilerplate.exe

@@ -1,0 +1,4 @@
+﻿  ShaderTools.cpp
+c:\documents\cpsc589ta\boilerplate\boilerplate\shadertools.cpp(159): warning C4244: 'initializing': conversion from 'std::streamoff' to 'unsigned long', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  boilerplate.vcxproj -> C:\Documents\CPSC589TA\boilerplate\Debug\boilerplate.exe

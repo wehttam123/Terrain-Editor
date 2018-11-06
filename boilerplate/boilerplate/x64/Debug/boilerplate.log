@@ -1,0 +1,4 @@
+﻿  InputHandler.cpp
+c:\users\matthew.hylton\documents\github\parametric-curves\boilerplate\boilerplate\inputhandler.cpp(135): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\matthew.hylton\documents\github\parametric-curves\boilerplate\boilerplate\inputhandler.cpp(136): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  boilerplate.vcxproj -> C:\Users\Matthew.Hylton\Documents\GitHub\Parametric-Curves\boilerplate\x64\Debug\boilerplate.exe
