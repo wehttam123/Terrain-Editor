@@ -4,15 +4,16 @@ RenderEngine::RenderEngine(GLFWwindow* window) : window(window) {
 	int width, height;
 	glfwGetWindowSize(window, &width, &height);
 	float aspectRatio = ((float)width / (float)height);
-	ortho = glm::ortho(-10.0f * aspectRatio, 10.0f * aspectRatio, -10.0f, 10.0f, -1.0f, 1.0f);
+	ortho = glm::ortho(-10.0f * aspectRatio, 10.0f * aspectRatio, -10.0f, 10.0f, -100.0f, 100.0f);
 
 	mainProgram = ShaderTools::compileShaders("shaders/main.vert", "shaders/main.frag");
 
 	// Set OpenGL state
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 	glEnable(GL_LINE_SMOOTH);
 	glPointSize(30.0f);
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0);
+	glClearColor(0.69f, 0.89f, 0.9f, 0.0);
 }
 
 // Called to render provided objects under view matrix

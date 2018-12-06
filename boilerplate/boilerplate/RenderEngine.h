@@ -22,6 +22,7 @@ public:
 	void updateBuffers(Geometry& object);
 	void deleteBuffers(Geometry& object);
 	void setWindowSize(int width, int height);
+	int pickerRender(const std::vector<Geometry*>& objects);
 
 private:
 	GLFWwindow* window;

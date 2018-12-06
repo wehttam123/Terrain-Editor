@@ -18,12 +18,12 @@ public:
 	static void scroll(GLFWwindow* window, double x, double y);
 	static void reshape(GLFWwindow* window, int width, int height);
 
+	static bool mouseLeft;
+	static bool mouseRight;
+
 private:
 	static RenderEngine* renderEngine;
 
 	static int mouseOldX;
 	static int mouseOldY;
-	static bool mouseLeft;
-	static bool mouseRight;
-	static int num;
 };

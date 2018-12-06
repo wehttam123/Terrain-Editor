@@ -11,6 +11,8 @@
 #include "InputHandler.h"
 #include "RenderEngine.h"
 
+using namespace std;
+
 class Program {
 
 public:
@@ -20,15 +22,31 @@ public:
 	static int width;
 	static int height;
 
-	static bool hide;
-	static bool kPressed;
-	static bool uPressed;
-	static double u;	// Parameter
-	static int k;		// Order
-	static int m;		// # of Control Points - 1
+	static string view;
+	static string direction;
 
-	static std::vector<glm::vec2> E;	//Control Values
-	static std::vector<float> U;			//Knot Values
+	static float rotatex;
+	static float rotatey;
+	static float translatex;
+	static float translatey;
+	static float scale;
+	static float weight;
+	static float resolution;
+	static float x;
+	static float y;
+
+	static bool selected;
+	static bool sketch;
+	static bool PointSelected;
+	static bool AddPoint;
+	static bool Deleted;
+	static bool DeleteSelected;
+	static bool P;
+	static bool L;
+	static int S;
+
+	Geometry test;
+	Geometry patch;
 
 private:
 	GLFWwindow* window;
@@ -37,7 +55,6 @@ private:
 	std::vector<Geometry*> objects;
 
 	Geometry Spline;
-	Geometry controlPoint;
 
 	static void error(int error, const char* description);
 	void setupWindow();

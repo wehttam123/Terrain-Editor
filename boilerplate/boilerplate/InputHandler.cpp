@@ -8,11 +8,8 @@ int InputHandler::mouseOldX;
 int InputHandler::mouseOldY;
 bool InputHandler::mouseLeft;
 bool InputHandler::mouseRight;
-int InputHandler::num = 0;
 bool mouseLeft = false;
 bool mouseRight = false;
-bool A = false;
-bool D = false;
 
 // Must be called before processing any GLFW events
 void InputHandler::setUp(RenderEngine* renderEngine) {
@@ -27,144 +24,183 @@ void InputHandler::key(GLFWwindow* window, int key, int scancode, int action, in
 		exit(0);
 	}
 
-	if (Program::uPressed) {
-		if (key == GLFW_KEY_RIGHT) {
-			if (Program::u <= 0.99) { Program::u = Program::u + 0.01; }
+	if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE) {
+		if (Program::view == "Curve") {
+			Program::view = "Terrain";
+		} else if (Program::view == "Terrain") {
+			Program::view = "Curve";
 		}
+	}
+
+
+	if (Program::view == "Terrain") {
+		if (key == GLFW_KEY_UP) {
+			Program::direction = "up";
+		}
+
+		if (key == GLFW_KEY_DOWN) {
+			Program::direction = "down";
+		}
+
 		if (key == GLFW_KEY_LEFT) {
-			if (Program::u >= 0.01) { Program::u = Program::u - 0.01; }
+			Program::direction = "left";
 		}
-	}
-	else if (Program::kPressed) {
-		if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-			if (Program::k <= Program::m) { Program::k = Program::k + 1; }
-		}
-		if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-			if (Program::k >= 0.0) { Program::k = Program::k - 1; }
-		}
-	}
 
-	if (key == GLFW_KEY_G && action == GLFW_PRESS) {
-		if (Program::hide) {
-			Program::hide = false;
+		if (key == GLFW_KEY_RIGHT) {
+			Program::direction = "right";
 		}
-		else {
-			Program::hide = true;
+
+		if (key == GLFW_KEY_S && action == GLFW_RELEASE) {
+			if (Program::S >= 2) {
+				Program::S = 0;
+			}
+			else {
+				Program::S++;
+			}
 		}
-	}
-	if (key == GLFW_KEY_H && action == GLFW_PRESS) {
-		if (Program::hide) {
-			Program::hide = false;
+
+		if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
+			if (Program::P == true) {
+				Program::P = false;
+			}
+			else if (Program::P == false) {
+				Program::P = true;
+			}
 		}
-		else {
-			Program::hide = true;
+
+		if (key == GLFW_KEY_L && action == GLFW_RELEASE) {
+			if (Program::L == true) {
+				Program::L = false;
+			}
+			else if (Program::L == false) {
+				Program::L = true;
+			}
 		}
-	}
 
-	if (key == GLFW_KEY_K) {
-		if (GLFW_PRESS == action)
-			Program::kPressed = true;
-		else if (GLFW_RELEASE == action)
-			Program::kPressed = false;
-	}
+		if (key == GLFW_KEY_R && action == GLFW_RELEASE) {
 
-	if (key == GLFW_KEY_U) {
-		if (GLFW_PRESS == action)
-			Program::uPressed = true;
-		else if (GLFW_RELEASE == action)
-			Program::uPressed = false;
-	}
+			if (Program::resolution <= 0.01) {
+				Program::resolution = 0.08333333;
+			}
+			else if (Program::resolution <= 0.08333333) {
+				Program::resolution = 0.1666666;
+			}
+			else if (Program::resolution <= 0.1666666) {
+				Program::resolution = 0.333333;
+			}
+			else if (Program::resolution <= 0.5) {
+				Program::resolution = 0.01;
+			}
 
-	if (key == GLFW_KEY_0 && action == GLFW_PRESS) {
-		num = 0;
-	}
-	if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
-		num = 1;
-	}
-	if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
-		num = 2;
-	}
-	if (key == GLFW_KEY_3 && action == GLFW_PRESS) {
-		num = 3;
-	}
-	if (key == GLFW_KEY_4 && action == GLFW_PRESS) {
-		num = 4;
-	}
-	if (key == GLFW_KEY_5 && action == GLFW_PRESS) {
-		num = 5;
-	}
-	if (key == GLFW_KEY_6 && action == GLFW_PRESS) {
-		num = 6;
-	}
-	if (key == GLFW_KEY_7 && action == GLFW_PRESS) {
-		num = 7;
-	}
-	if (key == GLFW_KEY_8 && action == GLFW_PRESS) {
-		num = 8;
-	}
-	if (key == GLFW_KEY_9 && action == GLFW_PRESS) {
-		num = 9;
-	}
-
-	if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-		A = true;
-	}
-
-	if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-		D = true;
+		}
 	}
 }
 
 // Callback for mouse button presses
 void InputHandler::mouse(GLFWwindow* window, int button, int action, int mods) {
-	if (button == GLFW_MOUSE_BUTTON_RIGHT && GLFW_RELEASE == action) {
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
+	Program::x = ((xpos / Program::width) * 2.1) - 1.05;
+	Program::y = ((ypos / Program::height) * 1.18) + 0.41;
+
+	if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+		if (GLFW_PRESS == action) {
 			mouseRight = true;
+			if (Program::PointSelected == true) {
+				Program::DeleteSelected = true;
+			}
+		}
+		else if (GLFW_RELEASE == action) {
+			mouseRight = false;
+		}
 	}
 
 	if (button == GLFW_MOUSE_BUTTON_LEFT) {
-		if (GLFW_PRESS == action)
+		if (GLFW_PRESS == action) {
 			mouseLeft = true;
-		else if (GLFW_RELEASE == action)
+
+			if (Program::view == "Curve") {
+				Program::x = ((xpos / Program::width) * 2.1) - 1.05;
+				Program::y = ((ypos / Program::height) * 1.18) + 0.41;
+			}
+		}
+		else if (GLFW_RELEASE == action) {
 			mouseLeft = false;
+			if (Program::PointSelected == false && Program::Deleted == false) {
+				Program::AddPoint = true;
+			}
+			Program::PointSelected = false;
+			Program::Deleted = false;
+		}
+	}
+
+	if (button == GLFW_MOUSE_BUTTON_MIDDLE)
+	{
+			if (Program::view == "Curve") {
+				if (Program::PointSelected == false) {
+					Program::x = ((xpos / Program::width) * 2.1) - 1.05;
+					Program::y = ((ypos / Program::height) * 1.18) + 0.41;
+
+					Program::sketch = true;
+				}
+			}
+		if (GLFW_RELEASE == action) {
+			Program::sketch = false;
+		}
 	}
 }
 
 // Callback for mouse motion
 void InputHandler::motion(GLFWwindow* window, double x, double y) {
 
-	float x1 = (x - (Program::width / 2))/(32);
-	float y1 = (-y + (Program::height / 2))/(32);
 
-	if (mouseLeft == true) {
-			Program::E.at(num).x = x1;
-			Program::E.at(num).y = y1;
+
+
+	if (Program::view == "Terrain") {
+		if (mouseLeft == true) {
+			Program::rotatex = Program::rotatex + ((x - mouseOldX) / Program::width) * 360.0;
+			Program::rotatey = Program::rotatey + ((y - mouseOldY) / Program::height) * 360.0;
+		}
+
+		if (mouseRight == true) {
+			Program::translatex = Program::translatex + ((x - mouseOldX) / Program::width) * 10.0;
+			Program::translatey = Program::translatey - ((y - mouseOldY) / Program::height) * 10.0;
+		}
+	} 
+
+	if (Program::view == "Curve") {
+		Program::x = ((x / Program::width) * 2.1) - 1.05;
+		Program::y = ((y / Program::height) * 1.18) + 0.41;
+		if (mouseLeft == true) {
+
+			Program::x = ((x / Program::width) * 2.1) - 1.05;
+			Program::y = ((y / Program::height) * 1.18) + 0.41;
+			//mouseLeft = false;
+		}
+		if (mouseRight == true) {
+			//mouseRight = false;
+		}
 	}
 
-	if (A == true) {
-
-		Program::m++;
-		Program::E.push_back(glm::vec2(x1, y1));
-		A = false;
-	}
-
-
-	if (D == true) {
-
-		Program::m--;
-		Program::k--;
-		Program::E.pop_back();
-		D = false;
-	}
-
+	mouseOldX = x;
+	mouseOldY = y;
 }
 
 // Callback for mouse scroll
 void InputHandler::scroll(GLFWwindow* window, double x, double y) {
+	if (Program::scale - y >= 1 && Program::scale + y <= 100) {
+		Program::scale = Program::scale - y;
+	}
+
+	if (Program::PointSelected == true) {
+		Program::weight = y / 10;
+	}
 }
 
 // Callback for window reshape/resize
 void InputHandler::reshape(GLFWwindow* window, int width, int height) {
-	renderEngine->setWindowSize(width, height);
+	//renderEngine->setWindowSize(width, height);
 	Program::width = width;
 	Program::height = height;
 }
